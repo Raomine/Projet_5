@@ -23,7 +23,7 @@ let arrowRight = document.querySelector(".arrow_right");
 let dots = document.querySelector(".dots");
 let bannerImage = document.querySelector(".banner-img");
 let bannerText = document.querySelector("#banner p");
-let i = 0;
+let img = 0;
 
 for (let i = 0; i < slides.length; i++) {
   let dot = document.createElement("div");
@@ -31,26 +31,24 @@ for (let i = 0; i < slides.length; i++) {
   dots.appendChild(dot);
 }
 let dotSelected = document.querySelectorAll(".dot");
-dotSelected[i].classList.add("dot_selected");
+dotSelected[img].classList.add("dot_selected");
 
 arrowLeft.addEventListener("click", () => {
   console.log("Clic sur la flèche de gauche");
-  dotSelected[i].classList.remove("dot_selected");
-  i = i - 1;
-  if (i < 0) {
-    i = slides.length - 1;
-  }
-  bannerImage.src = "./assets/images/slideshow/" + slides[i].image;
-  bannerText.innerHTML = slides[i].tagLine;
-  dotSelected[i].classList.add("dot_selected");
+  dotSelected[img].classList.remove("dot_selected");
+  img = (img - 1 + slides.length) % slides.length;
+
+  bannerImage.src = "./assets/images/slideshow/" + slides[img].image;
+  bannerText.innerHTML = slides[img].tagLine;
+  dotSelected[img].classList.add("dot_selected");
 });
 
 arrowRight.addEventListener("click", () => {
   console.log("Clic sur la flèche de droite");
-  dotSelected[i].classList.remove("dot_selected");
-  i = (i + 1) % slides.length;
+  dotSelected[img].classList.remove("dot_selected");
+  img = (img + 1) % slides.length;
 
-  bannerImage.src = "./assets/images/slideshow/" + slides[i].image;
-  bannerText.innerHTML = slides[i].tagLine;
-  dotSelected[i].classList.add("dot_selected");
+  bannerImage.src = "./assets/images/slideshow/" + slides[img].image;
+  bannerText.innerHTML = slides[img].tagLine;
+  dotSelected[img].classList.add("dot_selected");
 });
